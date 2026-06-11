@@ -1,9 +1,9 @@
 :: DEPENDENCIA: git e curl
 @echo off
 
-where git > NUL 2> NUL
-
 SETLOCAL
+
+where git > NUL 2> NUL
 
 IF %ERRORLEVEL% EQU 0 (
     echo "Encontrado executável git"
