@@ -1,41 +1,41 @@
 :: DEPENDENCIA: git e curl
 @echo off
 
-SETLOCAL
+setlocal
 
 where git > NUL 2> NUL
 
-IF %ERRORLEVEL% EQU 0 (
+if %ERRORLEVEL% EQU 0 (
     echo "Encontrado executável git"
-) ELSE (
+) else (
     REM install git
-    SET GITDIR=%USERPROFILE%\Documents\git\
-    SET GITZIP=MinGit-2.54.0-64-bit.zip
-    SET GITLINK=https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip
-    IF NOT EXIST %GITDIR% (
+    set GITDIR=%USERPROFILE%\Documents\git\
+    set GITZIP=MinGit-2.54.0-64-bit.zip
+    set GITLINK=https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip
+    if not exist %GITDIR% (
         mkdir %GITDIR%
     )
     curl --fail --location --silent -O --output-dir %GITDIR% %GITLINK%
-    IF EXIST %GITDIR%%GITZIP% (
+    if exist %GITDIR%%GITZIP% (
         cd %GITDIR%
         tar -xf %GITZIP%
         del %GITZIP%
     )
     REM Add git to PATH
-    SETX PATH %PATH%;%GITDIR%cmd
+    setx PATH %PATH%;%GITDIR%cmd
 )
 
-SET GVIMDIR=%USERPROFILE%\Documents\gvim\
-SET GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v9.2.0612/gvim_9.2.0612_x64.zip
-SET GVIMZIP=gvim_9.2.0612_x64.zip
+set GVIMDIR=%USERPROFILE%\Documents\gvim\
+set GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v9.2.0612/gvim_9.2.0612_x64.zip
+set GVIMZIP=gvim_9.2.0612_x64.zip
 
-IF NOT EXIST %GVIMDIR% (
+if not exist %GVIMDIR% (
     mkdir %GVIMDIR%
 )
 
 curl --fail --location --silent -O --output-dir %GVIMDIR% %GVIMLINK%
 
-IF EXIST %GVIMDIR%%GVIMZIP% (
+if exist %GVIMDIR%%GVIMZIP% (
     cd %GVIMDIR%
     tar -xf %GVIMZIP%
     cd %GVIMDIR%vim
@@ -43,11 +43,11 @@ IF EXIST %GVIMDIR%%GVIMZIP% (
     REM git remote add nvimrc https://github.com/Andrikin/nvimrc
     git remote add nvimrc git@github.com:Andrikin/nvimrc
     git pull nvimrc gvim
-    IF EXIST %GVIMDIR%%GVIMZIP% ( del %GVIMDIR%%GVIMZIP% )
+    if exist %GVIMDIR%%GVIMZIP% ( del %GVIMDIR%%GVIMZIP% )
 )
 
 REM Open gvim
 %GVIMDIR%vim\vim92\gvim.exe
 
-ENDLOCAL
+endlocal
 
