@@ -9,7 +9,7 @@ IF %ERRORLEVEL% EQU 0 (
     echo "Encontrado executável git"
 ) ELSE (
     REM install git
-    SET GITDIR=%HOMEDRIVE%%HOMEPATH%\Documents\git\
+    SET GITDIR=%USERPROFILE%\Documents\git\
     SET GITZIP=MinGit-2.54.0-64-bit.zip
     SET GITLINK=https://github.com/git-for-windows/git/releases/download/v2.54.0.windows.1/MinGit-2.54.0-64-bit.zip
     IF NOT EXIST %GITDIR% (
@@ -25,7 +25,7 @@ IF %ERRORLEVEL% EQU 0 (
     SETX PATH %PATH%;%GITDIR%cmd
 )
 
-SET GVIMDIR=%HOMEDRIVE%%HOMEPATH%\Documents\gvim\
+SET GVIMDIR=%USERPROFILE%\Documents\gvim\
 SET GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v9.2.0612/gvim_9.2.0612_x64.zip
 SET GVIMZIP=gvim_9.2.0612_x64.zip
 
