@@ -3,11 +3,17 @@
 
 @setlocal EnableDelayedExpansion
 
+if %~d0 EQU "C:" (
+    set USERPROFILE=%USERPROFILE%\Documents
+) else (
+    set USERPROFILE=%~d0
+)
+
 set GITVERSION=2.54.0
 set GVIMVERSION=9.2.0612
 
 REM GIT
-set GITDIR=%USERPROFILE%\Documents\git\
+set GITDIR=%USERPROFILE%\git\
 set GITLINK=https://github.com/git-for-windows/git/releases/download/v%GITVERSION%.windows.1/MinGit-%GITVERSION%-64-bit.zip
 set GITZIP=MinGit-%GITVERSION%-64-bit.zip
 
@@ -32,7 +38,7 @@ if %ERRORLEVEL% EQU 0 (
 )
 
 REM install gvim
-set GVIMDIR=%USERPROFILE%\Documents\gvim-teste\
+set GVIMDIR=%USERPROFILE%\gvim\
 set GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v%GVIMVERSION%/gvim_%GVIMVERSION%_x64.zip
 set GVIMZIP=gvim_%GVIMVERSION%_x64.zip
 
