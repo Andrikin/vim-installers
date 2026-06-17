@@ -12,16 +12,16 @@ if "%~d0" == "C:" (
 set GITVERSION=2.54.0
 set NVIMVERSION=0.12.3
 
-REM git
+REM GIT
 set "GITDIR=%USERPROFILE%\git\"
 set "GITLINK=https://github.com/git-for-windows/git/releases/download/v%GITVERSION%.windows.1/MinGit-%GITVERSION%-64-bit.zip"
 set "GITZIP=MinGit-%GITVERSION%-64-bit.zip"
 
-where git > NUL 2>&1
+for %%i in (git.exe) do set "GIT=%%~$PATH:i"
 
-if "%ERRORLEVEL%" == 0 (
+if not "%GIT%" == "" (
     echo "Encontrado executável git"
-    set GIT=git.exe
+    echo "%GIT%"
 ) else (
     REM install git
     if not exist "%GITDIR%" mkdir "%GITDIR%"
