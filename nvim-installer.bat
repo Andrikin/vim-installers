@@ -1,7 +1,7 @@
 :: DEPENDENCIA: git e curl
 @echo off
 
-@setlocal EnableDelayedExpansion
+@setlocal
 
 if "%~d0" == "C:" (
     set "USERPROFILE=%USERPROFILE%\Documents"
