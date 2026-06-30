@@ -22,22 +22,24 @@ for %%i in (git.exe) do set "GIT=%%~$PATH:i"
 if not "%GIT%" == "" (
     echo "Encontrado executável git"
     echo "%GIT%"
-) else (
-    REM install git
-    if not exist "%GITDIR%" mkdir "%GITDIR%"
-    curl --fail --location --silent -O --output-dir "%GITDIR%" "%GITLINK%"
-    if exist "%GITDIR%%GITZIP%" (
-        cd "%GITDIR%"
-        tar -xf "%GITZIP%"
-        del "%GITZIP%"
-    ) else (
-        echo "Não foi possível realizar o download do git!"
-        exit /B 0 
-    )
-    if exist "%GITDIR%cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%cmd" )
-    set "GIT=%GITDIR%cmd\git.exe"
+    goto notinstallgit
 )
 
+REM install git
+if not exist "%GITDIR%" mkdir "%GITDIR%"
+curl --fail --location --silent -O --output-dir "%GITDIR%" "%GITLINK%"
+if exist "%GITDIR%%GITZIP%" (
+    cd "%GITDIR%"
+    tar -xf "%GITZIP%"
+    del "%GITZIP%"
+) else (
+    echo "Não foi possível realizar o download do git!"
+    exit /B 0 
+)
+if exist "%GITDIR%cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%cmd" )
+set "GIT=%GITDIR%cmd\git.exe"
+
+:notinstallgit
 REM install gvim
 set "GVIMDIR=%USERPROFILE%\gvim\"
 set "GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v%GVIMVERSION%/gvim_%GVIMVERSION%_x64.zip"
