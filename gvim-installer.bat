@@ -64,7 +64,7 @@ if exist "%GVIMDIR%%GVIMZIP%" (
 
 echo "executando gvim!"
 REM Open gvim
-cmd.exe /c start "%GVIMDIR%vim\vim92\gvim.exe"
+cmd.exe /s /c start "%GVIMDIR%vim\vim92\gvim.exe"
 
 @endlocal
 
