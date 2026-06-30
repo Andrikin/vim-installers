@@ -47,8 +47,8 @@ if not exist "%GVIMDIR%" mkdir "%GVIMDIR%"
 
 curl --fail --location --silent -O --output-dir "%GVIMDIR%" "%GVIMLINK%"
 
-if "%ERRORLEVEL%" == 0 ( echo "gvim baixado!" ) else (
-    echo "Não foi possível realizar o download do git!"
+if "%ERRORLEVEL%" == 0 ( echo "GVIM baixado!" ) else (
+    echo "Não foi possível realizar o download do GVIM!"
     exit /B 0
 )
 

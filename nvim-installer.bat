@@ -51,7 +51,10 @@ if not exist "%NVIMDIR%" (
 
 curl --fail --location --silent -O --output-dir "%NVIMDIR%" "%NVIMLINK%"
 
-if "%ERRORLEVEL%" == 0 echo "nvim baixado!"
+if "%ERRORLEVEL%" == 0 ( echo "NVIM baixado!" ) else (
+    echo "Não foi possível realizar o download do NVIM!"
+    exit /B 0
+)
 
 if exist "%NVIMDIR%%NVIMZIP%" (
     cd "%NVIMDIR%"
