@@ -45,7 +45,7 @@ if not exist "%GVIMDIR%" mkdir "%GVIMDIR%"
 
 curl "%GVIMLINK%" --fail --location --silent --remote-name --output-dir "%GVIMDIR%"
 
-if "%ERRORLEVEL%" == 0 ( echo "GVIM baixado!" ) else (
+if not exist "%GVIMDIR%\%GVIMZIP%" (
     echo "Não foi possível realizar o download do GVIM!"
     exit /B 0
 )

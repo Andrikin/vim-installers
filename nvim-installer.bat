@@ -49,7 +49,7 @@ if not exist "%NVIMDIR%" (
 
 curl "%NVIMLINK%" --fail --location --silent --remote-name --output-dir "%NVIMDIR%"
 
-if "%ERRORLEVEL%" == 0 ( echo "NVIM baixado!" ) else (
+if not exist "%NVIMDIR%\%NVIMZIP%" (
     echo "Não foi possível realizar o download do NVIM!"
     exit /B 0
 )
