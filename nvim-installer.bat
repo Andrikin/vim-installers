@@ -69,7 +69,7 @@ if exist "%NVIMDIR%\%NVIMZIP%" (
 
 echo "executando nvim!"
 REM Open gvim
-cmd.exe /s /c start "%WINPORTABLENEOVIM%nvim\bin\nvim.exe" --headless --listen \\.\pipe\andrikin
+cmd.exe /s /c "%WINPORTABLENEOVIM%nvim\bin\nvim.exe" --headless --listen \\.\pipe\andrikin
 
 @endlocal
 
