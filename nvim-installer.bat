@@ -18,6 +18,12 @@ set "GITLINK=https://github.com/git-for-windows/git/releases/download/v%GITVERSI
 set "GITZIP=MinGit-%GITVERSION%-64-bit.zip"
 set "GIT=%GITDIR%\cmd\git.exe"
 
+REM neovim
+set "NVIMDIR=%USERPROFILE%\nvim"
+set "NVIMLINK=https://github.com/neovim/neovim/releases/download/v%NVIMVERSION%/nvim-win64.zip"
+set "NVIMZIP=nvim-win64.zip"
+set "WINPORTABLENEOVIM=%NVIMDIR%\win-portable-neovim\"
+
 if exist "%GIT%" (
     goto notinstallgit
 )
@@ -35,12 +41,6 @@ if exist "%GITDIR%\%GITZIP%" (
 )
 
 :notinstallgit
-
-REM neovim
-set "NVIMDIR=%USERPROFILE%\nvim"
-set "NVIMLINK=https://github.com/neovim/neovim/releases/download/v%NVIMVERSION%/nvim-win64.zip"
-set "NVIMZIP=nvim-win64.zip"
-set "WINPORTABLENEOVIM=%NVIMDIR%\win-portable-neovim\"
 
 if not exist "%NVIMDIR%" (
     mkdir "%NVIMDIR%"

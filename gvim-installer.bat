@@ -18,6 +18,11 @@ set "GITLINK=https://github.com/git-for-windows/git/releases/download/v%GITVERSI
 set "GITZIP=MinGit-%GITVERSION%-64-bit.zip"
 set "GIT=%GITDIR%\cmd\git.exe"
 
+REM install gvim
+set "GVIMDIR=%USERPROFILE%\gvim"
+set "GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v%GVIMVERSION%/gvim_%GVIMVERSION%_x64.zip"
+set "GVIMZIP=gvim_%GVIMVERSION%_x64.zip"
+
 if exist "%GIT%" (
     goto notinstallgit
 )
@@ -35,11 +40,6 @@ if exist "%GITDIR%\%GITZIP%" (
 )
 
 :notinstallgit
-
-REM install gvim
-set "GVIMDIR=%USERPROFILE%\gvim"
-set "GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v%GVIMVERSION%/gvim_%GVIMVERSION%_x64.zip"
-set "GVIMZIP=gvim_%GVIMVERSION%_x64.zip"
 
 if not exist "%GVIMDIR%" mkdir "%GVIMDIR%"
 
