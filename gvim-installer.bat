@@ -38,7 +38,7 @@ if exist "%GITDIR%\%GITZIP%" (
 )
 
 :notinstallgit
-if exist "%GITDIR%\cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%\cmd" )
+if not exist "%GITDIR%\cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%\cmd" )
 set "GIT=%GITDIR%\cmd\git.exe"
 
 REM install gvim
