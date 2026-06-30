@@ -34,6 +34,7 @@ if not "%GIT%" == "" (
         echo "Não foi possível realizar o download do git!"
         exit /B 0 
     )
+    if exist "%GITDIR%cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%cmd" )
     set "GIT=%GITDIR%cmd\git.exe"
 )
 
