@@ -13,7 +13,7 @@ set GITVERSION=2.54.0
 set NVIMVERSION=0.12.3
 
 REM GIT
-set "GITDIR=%USERPROFILE%\git\"
+set "GITDIR=%USERPROFILE%\git"
 set "GITLINK=https://github.com/git-for-windows/git/releases/download/v%GITVERSION%.windows.1/MinGit-%GITVERSION%-64-bit.zip"
 set "GITZIP=MinGit-%GITVERSION%-64-bit.zip"
 
@@ -27,8 +27,8 @@ if not "%GIT%" == "" (
 
 REM install git
 if not exist "%GITDIR%" mkdir "%GITDIR%"
-curl --fail --location --silent -O --output-dir "%GITDIR%" "%GITLINK%"
-if exist "%GITDIR%%GITZIP%" (
+curl "%GITLINK%" --fail --location --silent --remote-name --output-dir "%GITDIR%"
+if exist "%GITDIR%\%GITZIP%" (
     cd "%GITDIR%"
     tar -xf "%GITZIP%"
     del "%GITZIP%"
@@ -36,29 +36,30 @@ if exist "%GITDIR%%GITZIP%" (
     echo "Não foi possível realizar o download do git!"
     exit /B 0 
 )
-if exist "%GITDIR%cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%cmd" )
-set "GIT=%GITDIR%cmd\git.exe"
 
 :notinstallgit
+if exist "%GITDIR%\cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%\cmd" )
+set "GIT=%GITDIR%\cmd\git.exe"
+
 REM neovim
-set "NVIMDIR=%USERPROFILE%\nvim\"
+set "NVIMDIR=%USERPROFILE%\nvim"
 set "NVIMLINK=https://github.com/neovim/neovim/releases/download/v%NVIMVERSION%/nvim-win64.zip"
 set "NVIMZIP=nvim-win64.zip"
-set "WINPORTABLENEOVIM=%NVIMDIR%win-portable-neovim\"
+set "WINPORTABLENEOVIM=%NVIMDIR%\win-portable-neovim\"
 
 if not exist "%NVIMDIR%" (
     mkdir "%NVIMDIR%"
     if not exist "%WINPORTABLENEOVIM%" mkdir "%WINPORTABLENEOVIM%" 
 )
 
-curl --fail --location --silent -O --output-dir "%NVIMDIR%" "%NVIMLINK%"
+curl "%NVIMLINK%" --fail --location --silent --remote-name --output-dir "%NVIMDIR%"
 
 if "%ERRORLEVEL%" == 0 ( echo "NVIM baixado!" ) else (
     echo "Não foi possível realizar o download do NVIM!"
     exit /B 0
 )
 
-if exist "%NVIMDIR%%NVIMZIP%" (
+if exist "%NVIMDIR%\%NVIMZIP%" (
     cd "%NVIMDIR%"
     tar -xf "%NVIMZIP%" -C "%WINPORTABLENEOVIM%"
     cd "%WINPORTABLENEOVIM%"
@@ -68,7 +69,7 @@ if exist "%NVIMDIR%%NVIMZIP%" (
     "%GIT%" remote add nvimrc https://github.com/Andrikin/win-portable-neovim
     "%GIT%" pull nvimrc main
     if "%ERRORLEVEL%" == 0 echo "win-portable-neovim instalado com sucesso!"
-    if exist "%NVIMDIR%%NVIMZIP%" ( del "%NVIMDIR%%NVIMZIP%" )
+    if exist "%NVIMDIR%\%NVIMZIP%" ( del "%NVIMDIR%\%NVIMZIP%" )
 )
 
 echo "executando nvim!"
