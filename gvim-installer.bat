@@ -16,12 +16,9 @@ REM GIT
 set "GITDIR=%USERPROFILE%\git"
 set "GITLINK=https://github.com/git-for-windows/git/releases/download/v%GITVERSION%.windows.1/MinGit-%GITVERSION%-64-bit.zip"
 set "GITZIP=MinGit-%GITVERSION%-64-bit.zip"
+set "GIT=%GITDIR%\cmd\git.exe"
 
-for %%i in (git.exe) do set "GIT=%%~$PATH:i"
-
-if not "%GIT%" == "" (
-    echo "Encontrado executável git"
-    echo "%GIT%"
+if exist "%GIT%" (
     goto notinstallgit
 )
 
@@ -38,8 +35,6 @@ if exist "%GITDIR%\%GITZIP%" (
 )
 
 :notinstallgit
-if not exist "%GITDIR%\cmd\git.exe" ( setx PATH "%PATH%;%GITDIR%\cmd" )
-set "GIT=%GITDIR%\cmd\git.exe"
 
 REM install gvim
 set "GVIMDIR=%USERPROFILE%\gvim"
