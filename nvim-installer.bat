@@ -12,7 +12,8 @@ if "%~d0" == "C:" (
 )
 
 set GITVERSION=2.54.0
-set NVIMVERSION=0.12.3
+REM set NVIMVERSION=0.12.3
+set NVIMVERSION=nightly
 
 REM GIT
 set "GITDIR=%USERPROFILE%\git"
