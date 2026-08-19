@@ -66,6 +66,8 @@ if exist "%GVIMDIR%\%GVIMZIP%" (
 set "USERPROFILE=%USERPROFILEBKP%"
 set "USERPROFILEBKP="
 
+set "PATH=%PATH%;%GITDIR%\cmd"
+
 echo "executando gvim!"
 REM Open gvim
 cmd.exe /s /c "%GVIMDIR%\vim\vim92\gvim.exe"

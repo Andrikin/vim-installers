@@ -72,6 +72,8 @@ if exist "%NVIMDIR%\%NVIMZIP%" (
 set "USERPROFILE=%USERPROFILEBKP%"
 set "USERPROFILEBKP="
 
+set "PATH=%PATH%;%GITDIR%\cmd"
+
 echo "executando nvim!"
 REM Open gvim
 cmd.exe /s /c "%WINPORTABLENEOVIM%nvim\bin\nvim.exe" --headless --listen \\.\pipe\andrikin
