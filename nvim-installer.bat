@@ -3,6 +3,8 @@
 
 @setlocal
 
+set "USERPROFILEBKP=%USERPROFILE%"
+
 if "%~d0" == "C:" (
     set "USERPROFILE=%USERPROFILE%\Documents"
 ) else (
@@ -66,6 +68,9 @@ if exist "%NVIMDIR%\%NVIMZIP%" (
     if "%ERRORLEVEL%" == 0 echo "win-portable-neovim instalado com sucesso!"
     if exist "%NVIMDIR%\%NVIMZIP%" ( del "%NVIMDIR%\%NVIMZIP%" )
 )
+
+set "USERPROFILE=%USERPROFILEBKP%"
+set "USERPROFILEBKP="
 
 echo "executando nvim!"
 REM Open gvim

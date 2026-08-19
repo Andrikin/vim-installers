@@ -3,6 +3,8 @@
 
 @setlocal
 
+set "USERPROFILEBKP=%USERPROFILE%"
+
 if "%~d0" == "C:" (
     set "USERPROFILE=%USERPROFILE%\Documents"
 ) else (
@@ -60,6 +62,9 @@ if exist "%GVIMDIR%\%GVIMZIP%" (
     "%GIT%" pull nvimrc gvim
     if exist "%GVIMDIR%\%GVIMZIP%" ( del "%GVIMDIR%\%GVIMZIP%" )
 )
+
+set "USERPROFILE=%USERPROFILEBKP%"
+set "USERPROFILEBKP="
 
 echo "executando gvim!"
 REM Open gvim
