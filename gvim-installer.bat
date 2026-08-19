@@ -12,7 +12,7 @@ if "%~d0" == "C:" (
 )
 
 set GITVERSION=2.54.0
-set GVIMVERSION=9.2.0612
+set GVIMVERSION=9.2.0976
 
 REM GIT
 set "GITDIR=%USERPROFILE%\git"
