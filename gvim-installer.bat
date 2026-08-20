@@ -1,7 +1,8 @@
 :: DEPENDENCIA: git e curl
+@echo off
+
 REM TODO: observar a instalação de ssh. Buscar ativar uma chave com
 REM ssh-add
-@echo off
 
 @setlocal
 
@@ -27,9 +28,7 @@ set "GVIMDIR=%USERPROFILE%\gvim"
 set "GVIMLINK=https://github.com/vim/vim-win32-installer/releases/download/v%GVIMVERSION%/gvim_%GVIMVERSION%_x64.zip"
 set "GVIMZIP=gvim_%GVIMVERSION%_x64.zip"
 
-if exist "%GIT%" (
-    goto notinstallgit
-)
+if exist "%GIT%" goto :notinstallgit
 
 REM install git
 if not exist "%GITDIR%" mkdir "%GITDIR%"
@@ -49,6 +48,11 @@ if not exist "%GVIMDIR%" mkdir "%GVIMDIR%"
 
 curl "%GVIMLINK%" --fail --location --silent --remote-name --output-dir "%GVIMDIR%"
 
+if "%ERRORLEVEL%" GTR 0 (
+    echo "Erro ao realizar o download do GVIM!"
+    exit /B "%ERRORLEVEL%"
+)
+
 if not exist "%GVIMDIR%\%GVIMZIP%" (
     echo "Não foi possível realizar o download do GVIM!"
     exit /B 1
@@ -57,9 +61,9 @@ if not exist "%GVIMDIR%\%GVIMZIP%" (
 if exist "%GVIMDIR%\%GVIMZIP%" (
     cd "%GVIMDIR%"
     tar -xf "%GVIMZIP%"
-    if "%ERRORLEVEL%" == 0 (
-		echo "win-portable-neovim instalado com sucesso!"
-		exit /B 1
+    if "%ERRORLEVEL%" GTR 0 (
+		echo "Erro ao extrair GVIM!"
+		exit /B "%ERRORLEVEL%"
 	)
     cd "%GVIMDIR%\vim"
     "%GIT%" init .

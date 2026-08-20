@@ -1,7 +1,8 @@
 :: DEPENDENCIA: git e curl
+@echo off
+
 REM TODO: observar a instalação de ssh. Buscar ativar uma chave com
 REM ssh-add
-@echo off
 
 @setlocal
 
@@ -14,7 +15,7 @@ if "%~d0" == "C:" (
 )
 
 set GITVERSION=2.54.0
-REM set NVIMVERSION=0.12.3
+REM set NVIMVERSION=v0.12.3
 set NVIMVERSION=nightly
 
 REM GIT
@@ -46,12 +47,16 @@ if exist "%GITDIR%\%GITZIP%" (
 
 :notinstallgit
 
-if not exist "%NVIMDIR%" (
-    mkdir "%NVIMDIR%"
-    if not exist "%WINPORTABLENEOVIM%" mkdir "%WINPORTABLENEOVIM%" 
-)
+if not exist "%NVIMDIR%" mkdir "%NVIMDIR%"
+
+if not exist "%WINPORTABLENEOVIM%" mkdir "%WINPORTABLENEOVIM%"
 
 curl "%NVIMLINK%" --fail --location --silent --remote-name --output-dir "%NVIMDIR%"
+
+if "%ERRORLEVEL%" GTR 0 (
+    echo "Não foi possível realizar o download do NVIM!"
+    exit /B "%ERRORLEVEL%"
+)
 
 if not exist "%NVIMDIR%\%NVIMZIP%" (
     echo "Não foi possível realizar o download do NVIM!"
@@ -61,27 +66,27 @@ if not exist "%NVIMDIR%\%NVIMZIP%" (
 if exist "%NVIMDIR%\%NVIMZIP%" (
     cd "%NVIMDIR%"
     tar -xf "%NVIMZIP%" -C "%WINPORTABLENEOVIM%"
-    if "%ERRORLEVEL%" == 0 (
-		echo "win-portable-neovim instalado com sucesso!"
-		exit /B 1
-	)
-    cd "%WINPORTABLENEOVIM%"
-    ren nvim-win64 nvim
-    "%GIT%" init .
-    "%GIT%" remote add nvimrc https://github.com/Andrikin/win-portable-neovim
-    "%GIT%" pull nvimrc main
-    if "%ERRORLEVEL%" == 0 echo "win-portable-neovim instalado com sucesso!"
-    if exist "%NVIMDIR%\%NVIMZIP%" ( del "%NVIMDIR%\%NVIMZIP%" )
 )
+
+if "%ERRORLEVEL%" GTR 0 (
+    echo "Erro ao extrair NVIM!"
+    exit /B "%ERRORLEVEL%"
+)
+
+cd "%WINPORTABLENEOVIM%"
+ren nvim-win64 nvim
+"%GIT%" init .
+"%GIT%" remote add nvimrc https://github.com/Andrikin/win-portable-neovim
+"%GIT%" pull nvimrc main
+if "%ERRORLEVEL%" == 0 echo "win-portable-neovim instalado com sucesso!"
+if exist "%NVIMDIR%\%NVIMZIP%" ( del "%NVIMDIR%\%NVIMZIP%" )
 
 set "USERPROFILE=%USERPROFILEBKP%"
 set "USERPROFILEBKP="
 
 set "PATH=%PATH%;%GITDIR%\cmd"
 
-echo "executando nvim!"
-REM Open gvim
-cmd.exe /s /c "%WINPORTABLENEOVIM%nvim\bin\nvim.exe" --headless --listen \\.\pipe\andrikin
+echo "Instalação completa do NVIM finalizado!"
 
 @endlocal
 
