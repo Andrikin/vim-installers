@@ -38,7 +38,7 @@ if exist "%GITDIR%\%GITZIP%" (
     del "%GITZIP%"
 ) else (
     echo "Não foi possível realizar o download do git!"
-    exit /B 0 
+    exit /B 1 
 )
 
 :notinstallgit
@@ -49,12 +49,16 @@ curl "%GVIMLINK%" --fail --location --silent --remote-name --output-dir "%GVIMDI
 
 if not exist "%GVIMDIR%\%GVIMZIP%" (
     echo "Não foi possível realizar o download do GVIM!"
-    exit /B 0
+    exit /B 1
 )
 
 if exist "%GVIMDIR%\%GVIMZIP%" (
     cd "%GVIMDIR%"
     tar -xf "%GVIMZIP%"
+    if "%ERRORLEVEL%" == 0 (
+		echo "win-portable-neovim instalado com sucesso!"
+		exit /B 1
+	)
     cd "%GVIMDIR%\vim"
     "%GIT%" init .
     "%GIT%" remote add nvimrc https://github.com/Andrikin/nvimrc

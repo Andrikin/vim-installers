@@ -40,7 +40,7 @@ if exist "%GITDIR%\%GITZIP%" (
     del "%GITZIP%"
 ) else (
     echo "Não foi possível realizar o download do git!"
-    exit /B 0 
+    exit /B 1 
 )
 
 :notinstallgit
@@ -54,12 +54,16 @@ curl "%NVIMLINK%" --fail --location --silent --remote-name --output-dir "%NVIMDI
 
 if not exist "%NVIMDIR%\%NVIMZIP%" (
     echo "Não foi possível realizar o download do NVIM!"
-    exit /B 0
+    exit /B 1
 )
 
 if exist "%NVIMDIR%\%NVIMZIP%" (
     cd "%NVIMDIR%"
     tar -xf "%NVIMZIP%" -C "%WINPORTABLENEOVIM%"
+    if "%ERRORLEVEL%" == 0 (
+		echo "win-portable-neovim instalado com sucesso!"
+		exit /B 1
+	)
     cd "%WINPORTABLENEOVIM%"
     ren nvim-win64 nvim
     "%GIT%" init .
