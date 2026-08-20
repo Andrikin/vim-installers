@@ -1,4 +1,6 @@
 :: DEPENDENCIA: git e curl
+REM TODO: observar a instalação de ssh. Buscar ativar uma chave com
+REM ssh-add
 @echo off
 
 @setlocal
@@ -67,7 +69,6 @@ if exist "%NVIMDIR%\%NVIMZIP%" (
     cd "%WINPORTABLENEOVIM%"
     ren nvim-win64 nvim
     "%GIT%" init .
-    REM %GIT% remote add nvimrc git@github.com:Andrikin/win-portable-neovim
     "%GIT%" remote add nvimrc https://github.com/Andrikin/win-portable-neovim
     "%GIT%" pull nvimrc main
     if "%ERRORLEVEL%" == 0 echo "win-portable-neovim instalado com sucesso!"

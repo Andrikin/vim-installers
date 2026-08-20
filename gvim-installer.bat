@@ -1,4 +1,6 @@
 :: DEPENDENCIA: git e curl
+REM TODO: observar a instalação de ssh. Buscar ativar uma chave com
+REM ssh-add
 @echo off
 
 @setlocal
@@ -62,7 +64,6 @@ if exist "%GVIMDIR%\%GVIMZIP%" (
     cd "%GVIMDIR%\vim"
     "%GIT%" init .
     "%GIT%" remote add nvimrc https://github.com/Andrikin/nvimrc
-    REM %GIT% remote add nvimrc git@github.com:Andrikin/nvimrc
     "%GIT%" pull nvimrc gvim
     if exist "%GVIMDIR%\%GVIMZIP%" ( del "%GVIMDIR%\%GVIMZIP%" )
 )
